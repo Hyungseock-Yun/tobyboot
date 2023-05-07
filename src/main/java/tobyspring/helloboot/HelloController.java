@@ -1,16 +1,24 @@
 package tobyspring.helloboot;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Objects;
 
 //@RestController
+@RequestMapping("/hello")
 public class HelloController {
+  private final HelloService helloService;
+
+  public HelloController(HelloService helloService) {
+    this.helloService = helloService;
+  }
 
 //  @GetMapping("/hello")
+  @GetMapping
+  @ResponseBody   // 해당 어노테이션 없이 return형태를 String으로 하면 view를 return하는 것으로 이해한다.
   public String hello(String name) {
-    SimpleHelloService helloService = new SimpleHelloService();
 
     return helloService.sayHello(Objects.requireNonNull(name));
   }
