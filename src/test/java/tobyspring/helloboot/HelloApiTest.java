@@ -26,9 +26,17 @@ public class HelloApiTest {
     // header(content-type) text/plain
     assertThat(res.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE)).startsWith(MediaType.TEXT_PLAIN_VALUE);
     // body Hello Spring
-    assertThat(res.getBody()).isEqualTo("Hello Spring");
+    assertThat(res.getBody()).isEqualTo("*Hello Spring*");
 
 
   }
 
+  @Test
+  void helloDecorator() {
+    HelloDecorator decorator = new HelloDecorator(name -> name);
+
+    String ret = decorator.sayHello("Test");
+
+    Assertions.assertThat(ret).isEqualTo("*Test*");
+  }
 }
